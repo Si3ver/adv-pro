@@ -9,8 +9,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/user",
-    component: () =>
-      import(/* webpackChunkName: "user" */ "../layouts/UserLayout"),
+    hideInMenu: true, // 标志位1，不渲染到左侧菜单上
+    component: () => import(/* webpackChunkName: "user" */ "../layouts/UserLayout"),
     children: [
       {
         path: "/user",
@@ -19,22 +19,19 @@ const routes = [
       {
         path: "/user/login",
         name: "login",
-        component: () =>
-          import(/* webpackChunkName: "user" */ "../views/User/Login.vue")
+        component: () => import(/* webpackChunkName: "user" */ "../views/User/Login.vue")
       },
       {
         path: "/user/register",
         name: "register",
-        component: () =>
-          import(/* webpackChunkName: "user" */ "../views/User/Register.vue")
+        component: () => import(/* webpackChunkName: "user" */ "../views/User/Register.vue")
       }
     ]
   },
   {
     path: "/",
     meta: { authority: ["user", "admin"] },
-    component: () =>
-      import(/* webpackChunkName: "layout" */ "../layouts/BasicLayout"),
+    component: () => import(/* webpackChunkName: "layout" */ "../layouts/BasicLayout"),
     children: [
       // dashboard
       {
@@ -51,10 +48,7 @@ const routes = [
             path: "/dashboard/analysis",
             name: "analysis",
             meta: { title: "分析页" },
-            component: () =>
-              import(
-                /* webpackChunkName: "dashboard" */ "../views/Dashboard/Analysis"
-              )
+            component: () => import(/* webpackChunkName: "dashboard" */ "../views/Dashboard/Analysis")
           }
         ]
       },
@@ -73,16 +67,14 @@ const routes = [
             path: "/form/basic-form",
             name: "basicform",
             meta: { title: "基础表单" },
-            component: () =>
-              import(/* webpackChunkName: "form" */ "../views/Forms/BasicForm")
+            component: () => import(/* webpackChunkName: "form" */ "../views/Forms/BasicForm")
           },
           {
             path: "/form/step-form",
             name: "stepform",
-            hideChildrenInMenu: true,
+            hideChildrenInMenu: true, // 标志位2，隐藏子元素，避免渲染到左侧菜单中
             meta: { title: "分步表单" },
-            component: () =>
-              import(/* webpackChunkName: "form" */ "../views/Forms/StepForm"),
+            component: () => import(/* webpackChunkName: "form" */ "../views/Forms/StepForm"),
             children: [
               {
                 path: "/form/step-form",
@@ -91,26 +83,17 @@ const routes = [
               {
                 path: "/form/step-form/info",
                 name: "info",
-                component: () =>
-                  import(
-                    /* webpackChunkName: "form" */ "../views/Forms/StepForm/Step1"
-                  )
+                component: () => import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/Step1")
               },
               {
                 path: "/form/step-form/confirm",
                 name: "confirm",
-                component: () =>
-                  import(
-                    /* webpackChunkName: "form" */ "../views/Forms/StepForm/Step2"
-                  )
+                component: () => import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/Step2")
               },
               {
                 path: "/form/step-form/result",
                 name: "result",
-                component: () =>
-                  import(
-                    /* webpackChunkName: "form" */ "../views/Forms/StepForm/Step3"
-                  )
+                component: () => import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/Step3")
               }
             ]
           }
@@ -121,6 +104,7 @@ const routes = [
   {
     path: "*",
     name: 404,
+    hideInMenu: true,
     component: NotFound
   }
 ];
