@@ -8,7 +8,18 @@
       <a-menu-item
         v-if="!item.children"
         :key="item.path"
-        @click="() => parent.$router.push({ path: item.path, query: parent.$route.query })"
+        @click="
+          () => {
+            parent.$router.push({ path: item.path, query: parent.$route.query }).catch(err => {
+              /* [BUGFIX] 
+                处理重复点击同一路由的问题
+                参考：https://stackoverflow.com/questions/57837758/navigationduplicated-navigating-to-current-location-search-is-not-allowed */
+              if (err.name !== 'NavigationDuplicated') {
+                throw err;
+              }
+            });
+          }
+        "
       >
         <a-icon v-if="item.meta.icon" :type="item.meta.icon" />
         <span>{{ item.meta.title }}</span>

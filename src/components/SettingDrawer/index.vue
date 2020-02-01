@@ -1,13 +1,6 @@
 <template>
   <div>
-    <a-drawer
-      title="Info"
-      placement="right"
-      :closable="false"
-      @close="onClose"
-      :visible="visible"
-      width="300px"
-    >
+    <a-drawer title="Info" placement="right" :closable="false" @close="onClose" :visible="visible" width="300px">
       <template v-slot:handle>
         <div class="handle" @click="visible = !visible">
           <a-icon :type="visible ? 'close' : 'setting'" />
